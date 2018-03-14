@@ -1,0 +1,75 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/bootstrap.js' %}" type="text/javascript"></script>
+    <title>首页</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+    <form class="form-inline" role="form">
+        <div class="form-group">
+           <label class="sr-only" for="name">name</label>
+           <input type="text" class="form-control" id="name" placeholder="mcc">
+        </div>
+    </form>
+            </div>
+    <div class="col-md-2">
+        <button class="btn btn-default" id="select-btn">查询</button>
+    </div>
+</div>
+    <div id="tbl-div" class="col-md-10">
+        <table class="table" id="tbl-mcc">
+            <thead>
+            <tr>
+                <th>行业大类</th>
+                <th>行业细分</th>
+                <th>MCC</th>
+                <th>MCC名称</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+<script>
+//新增一个函数可以生成多行的插入html，在ajax中直接调用这个函数的返回结果并插入到具体位置
+        $.ajax({
+            type:"GET",
+            url:"mcc/",
+            success: function(data){
+                console.log(data);
+            },
+            dataType:"json",
+        })
+
+        $("#select-btn").click(function () {
+            url = "mcc/"+$("#name").val();
+            $.ajax({
+                type:"GET",
+                url:url,
+                success: function (data) {
+                    console.log(data)
+                    onerow = "<tr>"+
+                        "<td>"+data.insd_type+"</td>"+
+                        "<td>"+data.insd_thin+"</td>"+
+                        "<td>"+data.mcc_code+"</td>"+
+                        "<td>"+data.mcc_name+"</td>"+
+                        "</tr>"
+                    console.log(onerow);
+                  //  $("thead").removeClass("hidden");
+                    $("thead").append(onerow);
+                },
+                dataType:"json",
+            })
+        })
+
+</script>
+</html>
