@@ -37,7 +37,7 @@
                 <input type="text" class="form-control" id="mcc-code" placeholder="mcc码">
             </form>
         </div>
-        <div class="col-md-2"><button class="btn btn-default">查询</button></div>
+        <div class="col-md-2"><button class="btn btn-default" onclick="searchMcc()">查询</button></div>
     </div>
     <div class="row">
         <div class="col-md-8">
@@ -50,31 +50,25 @@
                 </tr>
                 </thead>
                 <tbody id="mcc-body">
+                <!--
                 <tr>
                     <td>5998</td>
                     <td>其他批发商</td>
                     <td><a href="#">银商app<a>,<a href="#">POS流水贷<a>,<a href="#">T+0结算<a></a></td>
                 </tr>
+                -->
                 </tbody>
             </table>
             <div style="text-align: center">
                 <nav aria-label="Page navigation">
-                    <ul class="pagination">
-                        <li>
-                             <a href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                             </a>
-                        </li>
+                    <ul class="pagination" id="pagenav">
+                        <!--
                         <li><a href="#">1</a></li>
                         <li><a href="#">2</a></li>
                         <li><a href="#">3</a></li>
                         <li><a href="#">4</a></li>
                         <li><a href="#">5</a></li>
-                        <li>
-                             <a href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                             </a>
-                        </li>
+                        -->
                     </ul>
                 </nav>
             </div>
@@ -82,4 +76,66 @@
     </div>
 </div>
 </body>
+<script>
+    $(function () {
+        $.ajax({
+            type:"GET",
+            url:"../../static/data.json",
+            dataType:"json",
+            success:function (data) {
+                console.log(data);
+                genRow(data);
+                genPageNav(data);
+            },
+            error:function (e) {
+                console.log(e);
+            }
+        })
+        searchMcc=function () {
+            mccCode = $("#mcc-code").val();
+            $.ajax({
+                type:"GET",
+                url:"#",
+                dataType:"json",
+                success:function (data) {
+                    console.log(data);
+                    genRow(data);
+                },
+                error:function (e) {
+                    console.log(e);
+                }
+            })
+        }
+        pageButton=function (data) {
+            $.ajax({
+                type:"GET",
+                url:"../../static/data01.json",
+                dataType:"json",
+                success:function (data) {
+                    console.log(data);
+                    genRow(data);
+                }
+            })
+        }
+
+        var genRow = function (data) {
+            mcc = data.mcc;
+            //每次清空table内body
+            $("#mcc-body").empty();
+            for(i=0;i<mcc.length;i++){
+                var mccCode = mcc[i].mccCode;
+                var mccName = mcc[i].mccName;
+                var cpmc = mcc[i].cpmc;
+                var oneRow = "<tr><td>"+mccCode+"</td><td>"+mccName+"</td><td>"+cpmc+"</td></tr>";
+                $("#mcc-body").append(oneRow);
+            }
+        }
+        var genPageNav = function (data) {
+            for(i=1;i<=parseInt(data.pages);i++){
+                var onePage = '<li><a href="#" onclick=pageButton('+i+');return false;>'+i+'</a></li>';
+                $("#pagenav").append(onePage);
+            }
+        }
+    })
+</script>
 </html>
