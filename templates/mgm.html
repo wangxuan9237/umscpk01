@@ -26,11 +26,33 @@
 </nav>
 -->
 <div class="container">
+    <!--
     <div class="page-header">
         <h3>UMS产品库</h3>
         <p>可以通过MCC码查询商户使用的产品</p>
+        <div class="col-md-2 col-md-offset-10" style="float: right">
+            <div class="alert alert-danger fade in">
+                <a class="close" data-dismiss="alert">×</a>
+                警告，服务器当了！
+            </div>
+        </div>
+    </div>
+    -->
+    <div class="row">
+        <div class="col-md-8">
+            <h3>UMS产品库</h3>
+            <p>可以通过MCC码查询商户使用的产品</p>
+            <hr>
+        </div>
+        <div class="col-md-2 hide" style="float: right" id="alertd">
+            <div class="alert" id="alertb">
+                <a class="close" data-dismiss="alert">×</a>
+                <span id="alertMsg"></span>
+            </div>
+        </div>
     </div>
     <div class="row">
+
         <div class="col-md-2">
             <form class="form-group">
                 <label for="mcc-code" class="sr-only">mcc code</label>
@@ -277,16 +299,24 @@
                 "product1":product1add,"prodct2":product2add,
                     "product3":product3add,"product4":product4add,
                     "product5":product5add,"product6":product6add,
-                    "product7":product8add,"product8":product8add,
+                    "product7":product7add,"product8":product8add,
                     "product9":product9add,"product10":product10add
                 },
                 success:function (data) {
-                    console.log("add success");
                     console.log(data);
+                    if(data.message=="新增成功"){
+                        $("#alertMsg").text("新增成功");
+                        $("#alertb").addClass("alert-success");
+                        $("#alertd").removeClass("hide");
+                    }
+                    //新增成功后刷新当前页面
+                    location.reload();
                 },
                 error:function (e) {
-                    console.log("error");
                     console.log(e);
+                    $("#alertMsg").text("新增失败");
+                    $("#alertb").addClass("alert-warning");
+                    $("#alertd").removeClass("hide");
                 }
             })
         }
@@ -335,15 +365,25 @@
                 dataType:"json",
                 data:{"num":mccCode},
                 success:function (data) {
-                    console.log("del success");
                     console.log(data);
+                    if(data.message=="删除成功"){
+                        $("#alertMsg").text("删除成功");
+                        $("#alertb").addClass("alert-success");
+                        $("#alertd").removeClass("hide");
+                    }
+                    //删除成功后刷新当前页面
+                    location.reload();
                 },
                 error:function (e) {
                     console.log(e);
+                     $("#alertMsg").text("删除失败");
+                     $("#alertb").addClass("alert-warning");
+                     $("#alertd").removeClass("hide");
                 }
             })
         }
-        
+
+
         update = function (mccCode) {
             trArr = $("#"+mccCode).children();
                 var shsud = trArr.eq(0).text();
@@ -402,10 +442,16 @@
                 },
                 dataType:"json",
                 success:function (data) {
-                    console.log("success");
+                    console.log(data);
+                    $("#alertMsg").text("修改成功");
+                    $("#alertb").addClass("alert-success");
+                    $("#alertd").removeClass("hide");
                 },
                 error:function(e){
                     console.log(e);
+                     $("#alertMsg").text("修改失败");
+                     $("#alertb").addClass("alert-warning");
+                     $("#alertd").removeClass("hide");
                 }
             })
         }
