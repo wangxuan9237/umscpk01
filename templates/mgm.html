@@ -154,7 +154,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                            <button type="button" class="btn btn-default" onclick="add()">保存</button>
+                            <button type="button" id="addButton" class="btn btn-default" onclick="add()">保存</button>
                         </div>
                     </div>
                 </div>
@@ -279,7 +279,7 @@
                     "product5":product5add,"product6":product6add,
                     "product7":product8add,"product8":product8add,
                     "product9":product9add,"product10":product10add
-                }
+                },
                 success:function (data) {
                     console.log("add success");
                     console.log(data);
@@ -310,7 +310,7 @@
                 var product8 = mcc[i].product8;
                 var product9 = mcc[i].product9;
                 var product10 = mcc[i].product10;
-                var oneRow = '<tr><td>'+shanghushu+'</td><td>'+hangyedalei+'</td><td>'+hangyexifen+'</td>'
+                var oneRow = '<tr id='+mccCode+'><td>'+shanghushu+'</td><td>'+hangyedalei+'</td><td>'+hangyexifen+'</td>'
                     +'<td>'+mccCode+'</td><td>'+mccName+'</td><td>'
                     +product1+'</td><td>'+
                         product2+'</td><td>'+
@@ -322,10 +322,92 @@
                         product8+'</td><td>'+
                         product9+'</td><td>'+
                         product10+'</td><td>'+
-                        '<span class="glyphicon glyphicon-pencil"></span><span class="glyphicon glyphicon-trash"></span>'
+                        '<a href="#" onclick="update('+mccCode+')"><span class="glyphicon glyphicon-pencil"></span></a>' +
+                    '<a href="#" onclick="del('+mccCode+')"><span class="glyphicon glyphicon-trash"></span></a>'
                     +'</td></tr>';
                 $("#mcc-body").append(oneRow);
             }
+        }
+
+        del = function (mccCode) {
+            $.ajax({
+                url:"",
+                dataType:"json",
+                data:{"num":mccCode},
+                success:function (data) {
+                    console.log("del success");
+                    console.log(data);
+                },
+                error:function (e) {
+                    console.log(e);
+                }
+            })
+        }
+        
+        update = function (mccCode) {
+            trArr = $("#"+mccCode).children();
+                var shsud = trArr.eq(0).text();
+                $("#shhadd").val(shsud);
+                var hydlud = trArr.eq(1).text();
+                $("#hydladd").val(hydlud);
+                var hyxfud = trArr.eq(2).text();
+                $("#hyxf").val(hyxfud);
+                var mcccodeud = trArr.eq(3).text();
+                $("#mccCodeadd").val(mcccodeud);
+                var mccnameud = trArr.eq(4).text();
+                $("#mccNameadd").val(mccnameud);
+                var product1 = trArr.eq(5).text();
+                $("#product1add").val(product1);
+                var product2 = trArr.eq(6).text();
+                $("#product2add").val(product2);
+                var product3 = trArr.eq(7).text();
+                $("#product3add").val(product3);
+                var product4 = trArr.eq(8).text();
+                $("#product4add").val(product4);
+                var product5 = trArr.eq(9).text();
+                $("#product5add").val(product5);
+                var product6 = trArr.eq(10).text();
+                $("#product6add").val(product6);
+                var product7 = trArr.eq(11).text();
+                $("#product7add").val(product7);
+                var product8 = trArr.eq(12).text();
+                $("#product8add").val(product8);
+                var product9 = trArr.eq(13).text();
+                $("#product9add").val(product9);
+                var product10 = trArr.eq(14).text();
+                $("#product10add").val(product10);
+                $("#addButton").attr("onclick","realupdate()");
+            $("#addModal").modal("show");
+        }
+
+        realupdate = function () {
+            var mcccode = $("#mccCodeadd").val();
+            var product1 = $("#product1add").val();
+            var product2 = $("#product2add").val();
+            var product3 = $("#product3add").val();
+            var product4 = $("#product4add").val();
+            var product5 = $("#product5add").val();
+            var product6 = $("#product6add").val();
+            var product7 = $("#product7add").val();
+            var product8 = $("#product8add").val();
+            var product9 = $("#product9add").val();
+            var product10 = $("#product10add").val();
+            $.ajax({
+                type:"GET",
+                url:"",
+                data:{"num":mcccode,"product1":product1,"product2":product2,
+                "product3":product3,"product4":product4,"product5":product5,
+                    "product6":product6,"product7":product7,"product8":product8,
+                    "product9":product9,"product10":product10
+                },
+                dataType:"json",
+                success:function (data) {
+                    console.log("success");
+                },
+                error:function(e){
+                    console.log(e);
+                }
+            })
         }
 
         var genPageNav = function (data) {
