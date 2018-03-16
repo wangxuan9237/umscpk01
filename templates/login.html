@@ -41,19 +41,22 @@
 </body>
 <script>
 login = function () {
-    var username = $("username").val();
-    var password = $("password").val();
+    var username = $("#username").val();
+    var password = $("#password").val();
     $.ajax({
         url:"",
         type:"GET",
         data:{"username":username,"password":password},
         dataType:"json",
         success:function (data) {
-            console.log("login success");
-            setCookie("username",username);
-            setCookie("login","login");
+            if(data.result == true){
+                setCookie("username",username);
+                setCookie("login","login");
             //登录成功进行跳转
-            window.location.href="mgm";
+                window.location.href="mgm.html";
+            }else{
+                $("#alertd").show(300);
+            }
         },
         error:function (e) {
             console.log(e);

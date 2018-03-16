@@ -64,7 +64,7 @@
             <button class="btn btn-default" onclick="searchMcc()">查询</button>
         </div>
         <div class="col-md-2 col-md-offset-6">
-            <button class="btn btn-default" style="float: right" data-toggle="modal" data-target="#addModal">新增</button>
+            <button class="btn btn-default hide" style="float: right" data-toggle="modal" data-target="#addModal" id="addBtn">新增</button>
             <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addmodal">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -204,7 +204,7 @@
                     <th>产品8</th>
                     <th>产品9</th>
                     <th>产品10</th>
-                    <th>操作</th>
+                    <th class="hide" id="optth">操作</th>
                 </tr>
                 </thead>
                 <tbody id="mcc-body">
@@ -236,18 +236,28 @@
 </body>
 <script>
     $(function () {
+        var islogin = false;
         var checkLogin = function () {
-        var login = getCookie("login");
-        console.log(login);
-        if(login == "login"){
-            console.log("login success");
-        }else{
-            console.log("login fail");
-            window.location.href="";
-        }
-    }
-    checkLogin();
-    })
+            var login = getCookie("login");
+            console.log(login);
+            console.log("go here");
+            if (login == "login") {
+                console.log("login success");
+                islogin = true;
+                $("#addBtn").removeClass("hide");
+                $("$#optth").removeClass("hide");
+            } else {
+                console.log("login fail");
+                islogin = false;
+                console.log(islogin);
+            }
 
+        }
+         checkLogin();
+        initalpage(islogin);
+
+
+
+    })
 </script>
 </html>

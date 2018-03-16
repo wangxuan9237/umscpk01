@@ -1,11 +1,11 @@
-    $(function () {
-        var inital = function () {
+
+        function initalpage(islogin) {
             $.ajax({
             type:"GET",
             url:"../../static/data.json",
             dataType:"json",
             success:function (data) {
-                genRow(data);
+                genRow(data,islogin);
                 genPageNav(data);
             },
             error:function (e) {
@@ -86,7 +86,7 @@
                 }
             })
         }
-        var genRow = function (data) {
+        var genRow = function (data,islogin) {
             mcc = data;
             //每次清空table内body
             $("#mcc-body").empty();
@@ -117,11 +117,17 @@
                         product7+'</td><td>'+
                         product8+'</td><td>'+
                         product9+'</td><td>'+
-                        product10+'</td><td>'+
+                        product10+'</td>';
+                var optrow =
                         '<a href="#" onclick="update('+mccCode+')"><span class="glyphicon glyphicon-pencil"></span></a>' +
                     '<a href="#" onclick="del('+mccCode+')"><span class="glyphicon glyphicon-trash"></span></a>'
                     +'</td></tr>';
-                $("#mcc-body").append(oneRow);
+                if(islogin == true){
+                    var realonerow = oneRow+'<td>'+optrow;
+                }else{
+                    var realonerow = oneRow+'</tr>';
+                }
+                $("#mcc-body").append(realonerow);
             }
         }
 
@@ -229,7 +235,7 @@
                 $("#pagenav").append(onePage);
             }
         }
-    })
+
 
     function setCookie(cname,cvalue) {
         document.cookie = cname + "=" + cvalue + "; "
