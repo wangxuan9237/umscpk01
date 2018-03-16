@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     <script type="text/javascript" src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/default.js' %}"></script>
 </head>
 <body>
 <!--
@@ -233,4 +234,20 @@
     </div>
 </div>
 </body>
+<script>
+    $(function () {
+        var checkLogin = function () {
+        var login = getCookie("login");
+        console.log(login);
+        if(login == "login"){
+            console.log("login success");
+        }else{
+            console.log("login fail");
+            window.location.href="";
+        }
+    }
+    checkLogin();
+    })
+
+</script>
 </html>

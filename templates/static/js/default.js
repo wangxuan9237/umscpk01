@@ -1,10 +1,10 @@
     $(function () {
-        $.ajax({
+        var inital = function () {
+            $.ajax({
             type:"GET",
             url:"../../static/data.json",
             dataType:"json",
             success:function (data) {
-                console.log(data);
                 genRow(data);
                 genPageNav(data);
             },
@@ -12,6 +12,8 @@
                 console.log(e);
             }
         })
+        }
+
         searchMcc=function () {
             mccCode = $("#mcc-code").val();
             $.ajax({
