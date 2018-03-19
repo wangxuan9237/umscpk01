@@ -5,7 +5,7 @@
             url:"../../static/data.json",
             dataType:"json",
             success:function (data) {
-                genRow(data,islogin);
+                genRow(data);
                 genPageNav(data);
             },
             error:function (e) {
@@ -62,7 +62,7 @@
                 url:"#",
                 dataType:"json",
                 data:{"shanghushu":shhadd,"hangyedalei":hydladd,"hangyexifen":hyxfadd,"num":mccCodeadd,"name":mccNameadd,
-                "product1":product1add,"prodct2":product2add,
+                "product1":product1add,"product2":product2add,
                     "product3":product3add,"product4":product4add,
                     "product5":product5add,"product6":product6add,
                     "product7":product7add,"product8":product8add,
@@ -70,13 +70,13 @@
                 },
                 success:function (data) {
                     console.log(data);
-                    if(data.message=="新增成功"){
-                        $("#alertMsg").text("新增成功");
-                        $("#alertb").addClass("alert-success");
-                        $("#alertd").removeClass("hide");
+                    if(data.result=="新增成功"){
+                        alertMsg("新增成功",true);
+                        $("#addModal").modal('hide');
+                    }else{
+                        alertMsg("新增失败",false);
+                        $("#addModal").modal('hide');
                     }
-                    //新增成功后刷新当前页面
-                    location.reload();
                 },
                 error:function (e) {
                     console.log(e);
@@ -86,8 +86,9 @@
                 }
             })
         }
-        var genRow = function (data,islogin) {
+        var genRow = function (data) {
             mcc = data;
+            var islogin = getCookie("login");
             //每次清空table内body
             $("#mcc-body").empty();
             for(i=0;i<mcc.length;i++){
@@ -108,16 +109,16 @@
                 var product10 = mcc[i].product10;
                 var oneRow = '<tr id='+mccCode+'><td>'+shanghushu+'</td><td>'+hangyedalei+'</td><td>'+hangyexifen+'</td>'
                     +'<td>'+mccCode+'</td><td>'+mccName+'</td><td>'
-                    +product1+'</td><td>'+
-                        product2+'</td><td>'+
-                        product3+'</td><td>'+
-                        product4+'</td><td>'+
-                        product5+'</td><td>'+
-                        product6+'</td><td>'+
-                        product7+'</td><td>'+
-                        product8+'</td><td>'+
-                        product9+'</td><td>'+
-                        product10+'</td>';
+                    +'<a href="#" onclick="download('+product1+')">'+product1+'</a></td><td>'+
+                    '<a href="#" onclick="download('+product2+')">'+ product2+'</a></td><td>'+
+                    '<a href="#" onclick="download('+product3+')">'+    product3+'</a></td><td>'+
+                    '<a href="#" onclick="download('+product4+')">'+    product4+'</a></td><td>'+
+                    '<a href="#" onclick="download('+product5+')">'+    product5+'</a></td><td>'+
+                    '<a href="#" onclick="download('+product6+')">'+    product6+'</a></td><td>'+
+                    '<a href="#" onclick="download('+product7+')">'+    product7+'</a></td><td>'+
+                    '<a href="#" onclick="download('+product8+')">'+    product8+'</a></td><td>'+
+                    '<a href="#" onclick="download('+product9+')">'+    product9+'</a></td><td>'+
+                    '<a href="#" onclick="download('+product10+')">'+    product10+'</a></td>';
                 var optrow =
                         '<a href="#" onclick="update('+mccCode+')"><span class="glyphicon glyphicon-pencil"></span></a>' +
                     '<a href="#" onclick="del('+mccCode+')"><span class="glyphicon glyphicon-trash"></span></a>'
@@ -251,4 +252,32 @@
     if (c.indexOf(name)==0) return c.substring(name.length,c.length);
   }
   return "";
+}
+
+
+var alertMsg = function (msg,isSus) {
+    if(isSus == true){
+        $("#alertMsg").text(msg);
+        $("#alertb").addClass("alert-success");
+        $("#alertd").removeClass("hide");
+        setTimeout("window.location.reload()",2000);
+    }else{
+        $("#alertMsg").text(msg);
+        $("#alertb").addClass("alert-danger");
+        $("#alertd").removeClass("hide");
+        setTimeout("window.location.reload()",2000);
+    }
+}
+
+function download(fname) {
+    $.ajax({
+        url:"",
+        type:"GET",
+        success:function () {
+
+        },
+        error:function (e) {
+            console.log(e);
+        }
+    });
 }
