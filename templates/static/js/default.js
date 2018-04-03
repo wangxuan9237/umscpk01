@@ -56,6 +56,7 @@
                 $("#product8add").val("");
                 $("#product9add").val("");
                 $("#product10add").val("");
+                 $("#addButton").attr("onclick","add()");
             $("#addModal").modal("show");
         }
         add = function () {
