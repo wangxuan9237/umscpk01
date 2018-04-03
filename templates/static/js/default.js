@@ -40,7 +40,24 @@
                 }
             })
         }
-
+        tmpadd = function () {
+             $("#shhadd").val("");
+                $("#hydladd").val("");
+                $("#hyxf").val("");
+                $("#mccCodeadd").val("");
+                $("#mccNameadd").val("");
+                $("#product1add").val("");
+                $("#product2add").val("");
+                $("#product3add").val("");
+                $("#product4add").val("");
+                $("#product5add").val("");
+                $("#product6add").val("");
+                $("#product7add").val("");
+                $("#product8add").val("");
+                $("#product9add").val("");
+                $("#product10add").val("");
+            $("#addModal").modal("show");
+        }
         add = function () {
             var shhadd = $("#shhadd").val();
             var hydladd = $("#hydladd").val();
