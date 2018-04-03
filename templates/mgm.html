@@ -63,8 +63,18 @@
                 <input type="text" class="form-control" id="mcc-code" placeholder="mcc码">
             </form>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-1">
             <button class="btn btn-default" onclick="searchMcc()">查询</button>
+        </div>
+
+         <div class="col-md-2">
+            <form class="form-group">
+                <label for="mcc-code" class="sr-only">mcc name</label>
+                <input type="text" class="form-control" id="mcc-name" placeholder="mcc名称">
+            </form>
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-default" onclick="searchMccName()">查询</button>
         </div>
 
         <div class="col-md-2 col-md-offset-6">
@@ -187,7 +197,35 @@
                     </div>
                 </div>
             </div>
+
         </div>
+
+        <div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+
+				<h4 class="modal-title" id="myModalLabel">
+					模态框（Modal）标题
+				</h4>
+
+			</div>
+			<div class="modal-body">
+				在这里添加一些文本
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+				</button>
+				<button type="button" class="btn btn-primary" id="delButton">
+					提交更改
+				</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
     </div>
     <div class="row">
         <div class="col-md-12">

@@ -29,6 +29,23 @@
                 }
             })
         }
+
+        searchMccName=function () {
+            mccName = $("#mcc-name").val();
+            $.ajax({
+                type:"GET",
+                url:"#",
+                dataType:"json",
+                success:function (data) {
+                    console.log(data);
+                    genRow(data);
+                },
+                error:function (e) {
+                    console.log(e);
+                }
+            })
+        }
+
         pageButton=function (data) {
             $.ajax({
                 type:"GET",
@@ -139,7 +156,7 @@
                     '<a href="#" onclick="download('+product10+')">'+    product10+'</a></td>';
                 var optrow =
                         '<a href="#" onclick="update('+mccCode+')"><span class="glyphicon glyphicon-pencil"></span></a>' +
-                    '<a href="#" onclick="del('+mccCode+')"><span class="glyphicon glyphicon-trash"></span></a>'
+                    '<a href="#" onclick="tmpdel('+mccCode+')"><span class="glyphicon glyphicon-trash"></span></a>'
                     +'</td></tr>';
                 if(islogin == true){
                     var realonerow = oneRow+'<td>'+optrow;
@@ -148,6 +165,12 @@
                 }
                 $("#mcc-body").append(realonerow);
             }
+        }
+
+        tmpdel = function (mccCode) {
+            $("#delModal").modal("show");
+            var delstr = "del("+mccCode+")";
+            $("#delButton").attr("onclick",delstr);
         }
 
         del = function (mccCode) {
