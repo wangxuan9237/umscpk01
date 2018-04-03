@@ -40,9 +40,10 @@
     </div>
     -->
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <h3>UMS产品库</h3>
-            <p>可以通过MCC码查询商户使用的产品</p>
+            <p>可以通过MCC码查询商户使用的产品<a id="logout" class="hide" href="#" onclick="delCookie('login')" style="float: right">注销</a></p>
+
             <hr>
         </div>
         <div class="col-md-2 hide" style="float: right" id="alertd">
@@ -63,6 +64,7 @@
         <div class="col-md-2">
             <button class="btn btn-default" onclick="searchMcc()">查询</button>
         </div>
+
         <div class="col-md-2 col-md-offset-6">
             <button class="btn btn-default hide" style="float: right" data-toggle="modal" data-target="#addModal" id="addBtn">新增</button>
             <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addmodal">
@@ -246,6 +248,7 @@
                 islogin = true;
                 $("#addBtn").removeClass("hide");
                 $("#optth").removeClass("hide");
+                $("#logout").removeClass("hide");
             } else {
                 console.log("login fail");
                 islogin = false;

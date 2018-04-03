@@ -109,7 +109,7 @@
                 var product10 = mcc[i].product10;
                 var oneRow = '<tr id='+mccCode+'><td>'+shanghushu+'</td><td>'+hangyedalei+'</td><td>'+hangyexifen+'</td>'
                     +'<td>'+mccCode+'</td><td>'+mccName+'</td><td>'
-                    +'<a href="#" onclick="download('+product1+')">'+product1+'</a></td><td>'+
+                    +'<a href="#" onclick="download1('+'\''+product1+'\''+')">'+product1+'</a></td><td>'+
                     '<a href="#" onclick="download('+product2+')">'+ product2+'</a></td><td>'+
                     '<a href="#" onclick="download('+product3+')">'+    product3+'</a></td><td>'+
                     '<a href="#" onclick="download('+product4+')">'+    product4+'</a></td><td>'+
@@ -254,6 +254,13 @@
   return "";
 }
 
+function delCookie(cname){
+    var exp = new Date();
+    exp.setTime(exp.getTime() - 1);
+    var cval=getCookie(cname);
+    if(cval!=null)
+        document.cookie= cname + "="+cval+";expires="+exp.toGMTString();
+}
 
 var alertMsg = function (msg,isSus) {
     if(isSus == true){
@@ -268,7 +275,7 @@ var alertMsg = function (msg,isSus) {
         setTimeout("window.location.reload()",2000);
     }
 }
-
+/*
 function download(fname) {
     $.ajax({
         url:"",
@@ -280,4 +287,8 @@ function download(fname) {
             console.log(e);
         }
     });
+}*/
+
+download1 = function (fname) {
+    console.log("down load function");
 }
