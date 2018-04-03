@@ -42,7 +42,9 @@
     <div class="row">
         <div class="col-md-12">
             <h3>UMS产品库</h3>
-            <p>可以通过MCC码查询商户使用的产品<a id="logout" class="hide" href="#" onclick="delCookie('login')" style="float: right">注销</a></p>
+            <p>可以通过MCC码查询商户使用的产品<a id="logout" class="hide" href="#" onclick="delCookie('login')" style="float: right">注销</a>
+            <a id="login" href="login" class="hide">登录</a>
+            </p>
 
             <hr>
         </div>
@@ -251,6 +253,7 @@
                 $("#logout").removeClass("hide");
             } else {
                 console.log("login fail");
+                $("#login").removeClass("hide");
                 islogin = false;
                 console.log(islogin);
             }
